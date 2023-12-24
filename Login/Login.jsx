@@ -1,12 +1,12 @@
-import { FaGoogle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaGoogle } from "react-icons/fa";
 import img1 from "../src/assets/login.jpg";
 import useAuth from "../Hook/UseAuth";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import toast from "react-hot-toast";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
+import toast from "react-hot-toast";
 
-const Login = () => {
+const LoginPage = () => {
   const { signIn, setLoading } = useAuth();
   const location = useLocation();
   console.log(location);
@@ -46,7 +46,7 @@ const Login = () => {
   };
 
   return (
-    <div className="card max-w-7xl mx-auto mt-20 flex items-center lg:card-side bg-base-100 shadow-xl">
+    <div className="card max-w-7xl mx-auto mt-20 flex flex-col md:flex-row  items-center lg:card-side bg-base-100 shadow-xl p-4">
       <div className="flex-1">
         <figure>
           <img src={img1} alt="Album" />
@@ -125,8 +125,10 @@ const Login = () => {
                 className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={handleGoogleSignIn}
               >
+                <div className="flex items-center justify-center gap-5">
                 <FaGoogle className="text-red-500 -ml-1 mr-2 h-5 w-5" />
                 <span>Google</span>
+                </div>
               </button>
             </div>
           </div>
@@ -136,4 +138,5 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LoginPage;
+

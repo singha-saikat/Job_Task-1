@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-escape */
 // import { useState } from "react";
 import { updateProfile } from "firebase/auth";
-import img1 from "../../src/assets/Mobile-login.jpg";
+import img1 from "../src/assets/Mobile-login.jpg";
 import useAuth from "../Hook/UseAuth";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
