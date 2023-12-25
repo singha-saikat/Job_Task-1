@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // Updated import statement
 import useAuth from "../../../../Hook/UseAuth";
 import { NavLink } from "react-router-dom";
-
 const Navbar = () => {
   const { user, logout } = useAuth();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate(); // Initialize useHistory
 
   // Toggle dropdown
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
@@ -26,13 +27,19 @@ const Navbar = () => {
     };
   }, []);
 
+  // Handle logout
+  const handleLogout = () => {
+    logout(); // Call the logout function
+    navigate("/"); // Redirect to the landing page
+  };
+
   return (
     <nav className="p-4 bg-blue-500 text-white">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="logo">
-          <h1 className="text-3xl font-bold">Logo</h1>
+      <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap">
+        <div className="logo flex-1">
+          <h1 className="text-2xl sm:text-3xl font-bold">Logo</h1>
         </div>
-        <div className="nav-links flex gap-4">
+        <div className="nav-links flex gap-4 mt-4 sm:mt-0">
           <NavLink
             to="/"
             className="hover:text-blue-200"
@@ -70,11 +77,11 @@ const Navbar = () => {
                 className="cursor-pointer flex items-center"
                 onClick={toggleDropdown}
               >
-                <div className="avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={user.photoURL} alt="User" />
-                  </div>
-                </div>
+                 <img
+                src={user.photoURL}
+                alt="User"
+                className="h-10 w-10 rounded-full object-cover"
+              />
               </label>
               {isDropdownOpen && (
                 <div
@@ -85,7 +92,7 @@ const Navbar = () => {
                     User Name: {user.displayName}
                   </p>
                   <div
-                    onClick={logout}
+                    onClick={handleLogout} 
                     className="cursor-pointer text-red-500 font-bold px-4 py-2 hover:bg-base-300 rounded-lg"
                   >
                     Logout

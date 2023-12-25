@@ -1,8 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { FaGoogle } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import img1 from "../src/assets/login.jpg";
 import useAuth from "../Hook/UseAuth";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import app from "../Firebase/Firebase.config";
 import toast from "react-hot-toast";
 
@@ -12,6 +12,7 @@ const LoginPage = () => {
   console.log(location);
   const auth = getAuth(app);
   const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -44,6 +45,19 @@ const LoginPage = () => {
         console.log(error.message);
       });
   };
+
+  const handleGitHubSignIn = () => {
+    setLoading(true);
+    signInWithPopup(auth, githubProvider)
+      .then((result) => {
+        console.log(result.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+  
 
   return (
     <div className="card max-w-7xl mx-auto mt-20 flex flex-col md:flex-row  items-center lg:card-side bg-base-100 shadow-xl p-4">
@@ -90,12 +104,12 @@ const LoginPage = () => {
               />
             </div>
 
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between p-2">
               <p className="text-sm text-gray-600">
                 New here?{" "}
                 <Link
                   to="/signUp"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                  className="font-medium text-blue-600 hover:text-indigo-500"
                 >
                   Create an account
                 </Link>
@@ -104,7 +118,7 @@ const LoginPage = () => {
 
             <button
               type="submit"
-              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg transform transition-all duration-150 ease-in-out"
+              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg transform transition-all duration-150 ease-in-out"
             >
               Sign in
             </button>
@@ -114,7 +128,7 @@ const LoginPage = () => {
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-300"></div>
               </div>
-              <div className="relative flex justify-center text-sm">
+              <div className="relative flex justify-center text-sm p-2">
                 <span className="px-2 bg-white text-gray-500">
                   Or continue with
                 </span>
@@ -131,6 +145,17 @@ const LoginPage = () => {
                 </div>
               </button>
             </div>
+            <div className="mt-2">
+              <button
+                className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={handleGitHubSignIn}
+              >
+                <div className="flex items-center justify-center gap-5">
+                <FaGithub className="text-red-500 -ml-1 mr-2 h-5 w-5" />
+                <span>Github</span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -139,4 +164,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

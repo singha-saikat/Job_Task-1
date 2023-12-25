@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 const Banner = () => {
   return (
     <div className=" bg-blue-500 text-white text-center p-12">
-      <section className="max-w-7xl mx-auto flex items-center gap-10">
+      <section className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-10">
         <div>
           <img
             className="rounded-lg"

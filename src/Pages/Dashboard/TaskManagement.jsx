@@ -5,25 +5,44 @@ import axios from "axios";
 import useAuth from "../../../Hook/UseAuth";
 import { FiEdit, FiTrash } from "react-icons/fi";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 // Import the edit (update) icon
+
+<motion.li
+  initial={{ opacity: 0, x: -100 }}
+  animate={{ opacity: 1, x: 0 }}
+  exit={{ opacity: 0, x: 100 }}
+  transition={{ duration: 0.5 }}
+  //... other props
+>
+  {/* content of the list item */}
+</motion.li>;
 
 const Modal = ({ onClose, children }) => {
   return (
-    <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
-        <div className="mt-3 text-center">
-          {children}
-          <div className="items-center px-4 py-3">
-            <button
-              className="px-4 py-2 bg-gray-400 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300"
-              onClick={onClose}
-            >
-              Close
-            </button>
+    <motion.div
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.8, opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50"
+    >
+      <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
+        <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+          <div className="mt-3 text-center">
+            {children}
+            <div className="items-center px-4 py-3">
+              <button
+                className="px-4 py-2 bg-gray-400 text-white text-base font-medium rounded-md w-full shadow-sm hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-gray-300"
+                onClick={onClose}
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
