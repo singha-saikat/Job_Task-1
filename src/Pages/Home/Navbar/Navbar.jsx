@@ -48,11 +48,11 @@ const Navbar = () => {
             Dashboard
           </NavLink>
           <NavLink
-            to="/team"
+            to="/audience"
             className="hover:text-blue-200"
             activeClassName="font-bold"
           >
-            Team
+            Audience 
           </NavLink>
           <NavLink
             to="/settings"

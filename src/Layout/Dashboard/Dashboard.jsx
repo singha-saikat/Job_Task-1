@@ -1,12 +1,11 @@
-import { FaHome, FaTasks, FaRegComments, FaRegRegistered } from "react-icons/fa";
-import { ImProfile } from "react-icons/im";
-import { MdOutlineManageAccounts } from "react-icons/md";
-import { FcFeedback } from "react-icons/fc";
+import { FaHome, FaTasks } from "react-icons/fa";
+import { TbAlignBoxBottomLeft } from "react-icons/tb";
 import { NavLink, Outlet } from "react-router-dom";
 import useAuth from "../../../Hook/UseAuth";
 
 const Dashboard = () => {
-  const { loading } = useAuth();
+  const { loading, user } = useAuth();
+  console.log(user);
 
   if (loading) {
     return (
@@ -16,14 +15,20 @@ const Dashboard = () => {
     );
   }
 
-  
-
   return (
     <>
       <div className="flex h-screen">
         <div className="w-64 bg-gradient-to-b from-blue-200 to-blue-400 text-gray-800 p-5">
           <div className="mb-10">
-            <div className="text-2xl font-bold mb-2">Dashboard</div>
+            <div className="text-2xl font-bold text-center mb-2">Dashboard</div>
+            <div className="flex items-center space-x-3 mt-4 mb-6">
+              <img
+                src={user.photoURL}
+                alt="User"
+                className="h-10 w-10 rounded-full object-cover"
+              />
+              <span className="text-lg font-semibold">{user.displayName}</span>
+            </div>
           </div>
           <ul className="space-y-2">
             <li>
@@ -39,16 +44,16 @@ const Dashboard = () => {
                 to="/dashboard/addTask"
                 className="flex items-center py-2 px-3 rounded hover:bg-blue-300 transition-colors duration-200"
               >
-                <FaTasks  className="mr-3" />
+                <FaTasks className="mr-3" />
                 Add Task
               </NavLink>
             </li>
             <li>
               <NavLink
-                to="/dashboard/professional-profile"
+                to="/dashboard/taskManagement"
                 className="flex items-center py-2 px-3 rounded hover:bg-blue-300 transition-colors duration-200"
               >
-                <FaRegComments className="mr-3" /> Profile Management
+                <TbAlignBoxBottomLeft className="mr-3" /> Task Management
               </NavLink>
             </li>
           </ul>

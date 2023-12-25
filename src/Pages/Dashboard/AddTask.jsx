@@ -1,31 +1,44 @@
 import { useState } from 'react';
 import axios from 'axios';
+import useAuth from '../../../Hook/UseAuth';
+import toast from 'react-hot-toast';
 
 const TaskManager = () => {
     const [taskName, setTaskName] = useState('');
     const [description, setDescription] = useState('');
+    const [deadline, setDeadline] = useState('');
+    const [priority, setPriority] = useState('Low');
+    const [taskType, setTaskType] = useState('To-Do');
+    const {user} = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         if (!taskName) {
-            alert('Please add a task name');
+            toast.error('Please add a task name');
             return;
         }
 
         try {
             const response = await axios.post('http://localhost:4000/taskInfo', {
+                user_email : user.email,
                 taskName,
-                description
+                description,
+                deadline,
+                priority,
+                status:taskType,
             });
-            console.log(response.data); // Handle the response
-            // Update state or UI as needed
+            console.log(response.data);
+            toast.success("New Task added successfully")
         } catch (error) {
             console.error('Error adding task:', error);
         }
 
         setTaskName('');
         setDescription('');
+        setDeadline('');
+        setPriority('Low');
+        setTaskType('To-Do');
     };
 
     return (
@@ -57,6 +70,50 @@ const TaskManager = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     ></textarea>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="deadline" className="block text-gray-700 text-sm font-bold mb-2">
+                        Deadline
+                    </label>
+                    <input
+                        type="date"
+                        id="deadline"
+                        name="deadline"
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        value={deadline}
+                        onChange={(e) => setDeadline(e.target.value)}
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="priority" className="block text-gray-700 text-sm font-bold mb-2">
+                        Priority
+                    </label>
+                    <select
+                        id="priority"
+                        name="priority"
+                        className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        value={priority}
+                        onChange={(e) => setPriority(e.target.value)}
+                    >
+                        <option value="Low">Low</option>
+                        <option value="Moderate">Moderate</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="taskType" className="block text-gray-700 text-sm font-bold mb-2">
+                        Task Type
+                    </label>
+                    <select
+                        id="taskType"
+                        name="taskType"
+                        className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                        value={taskType}
+                        onChange={(e) => setTaskType(e.target.value)}
+                    >
+                        <option value="To-Do">To-Do</option>
+                        {/* Add more task types if needed */}
+                    </select>
                 </div>
                 <div className="flex justify-center">
                     <button

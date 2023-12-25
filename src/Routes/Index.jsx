@@ -6,6 +6,8 @@ import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import SignUp from "../../SignUp/SignUp";
 import Dashboard from "../Layout/Dashboard/Dashboard";
 import AddTask from "../Pages/Dashboard/AddTask";
+import TaskManagement from "../Pages/Dashboard/TaskManagement";
+import BeneficiarySection from "../Pages/BeneficiarySection/BeneficiarySection";
 
 const routes = createBrowserRouter([
     {
@@ -25,6 +27,10 @@ const routes = createBrowserRouter([
                 path:'/signUp',
                 element: <SignUp/>,
             },
+            {
+                path:'/audience',
+                element: <BeneficiarySection/>,
+            },
         ]
 
     },
@@ -35,6 +41,10 @@ const routes = createBrowserRouter([
           {
             path: '/dashboard/addTask',
             element: <AddTask/>
+          },
+          {
+            path: '/dashboard/taskManagement',
+            element: <TaskManagement/>
           },
           
   
